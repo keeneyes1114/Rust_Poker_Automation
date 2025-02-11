@@ -1,5 +1,5 @@
-
 extern crate winapi;
+
 use winapi::um::winuser::{keybd_event, VK_RETURN, VK_BACK, VK_CONTROL};
 use winapi::shared::minwindef::{BYTE};
 use std::{thread, time};
@@ -7,13 +7,25 @@ use std::{thread, time};
 use enigo::{Enigo, MouseButton, MouseControllable};
 use uiautomation::UIAutomation;
 
+pub fn is_existed(button_name: &str) -> bool {
+    let automation = UIAutomation::new().unwrap();
+    
+    let matcher = automation.create_matcher().name(button_name);
+    if let Ok(button) = matcher.find_first() {
+        return true; // The button exists
+    } else {
+        return false; // The button does not exist
+    }
+}
+
+
 pub fn click_button(button_name: &str) {
     let automation = UIAutomation::new().unwrap();
     
     let matcher = automation.create_matcher().name(button_name);
     if let Ok(button) = matcher.find_first() {
-        button.set_focus().unwrap(); // Ensure the button is focused before clicking
-        
+        button.set_focus().unwrap();
+
         if let Err(e) = button.click() {
             eprintln!("Failed to click the button '{}': {:?}", button_name, e);
         }
@@ -48,30 +60,14 @@ pub fn type_text_and_enter(text: &str) {
         thread::sleep(time::Duration::from_millis(1)); // Small delay between key presses
     }
 
+    thread::sleep(time::Duration::from_millis(100)); // Allow UI to respond
     // Press Enter key to confirm search
     unsafe {
         keybd_event(VK_RETURN as BYTE, 0, 0, 0); // Press Enter
         keybd_event(VK_RETURN as BYTE, 0, 2, 0); // Release Enter
     }
-    thread::sleep(time::Duration::from_secs(1)); // Allow UI to respond
+    thread::sleep(time::Duration::from_millis(2000)); // Allow UI to respond
 }
-
-// pub fn click_lobby() {
-//     unsafe {
-//         // Press "Tab" 8 times
-//         for _ in 0..8 {
-//             keybd_event(VK_TAB as u8, 0, 0, 0); // Press Tab
-//             keybd_event(VK_TAB as u8, 0, 2, 0); // Release Tab
-//             thread::sleep(time::Duration::from_millis(100)); // Small delay for UI responsiveness
-//         }
-
-//         // Press "Enter"
-//         keybd_event(VK_RETURN as u8, 0, 0, 0); // Press Enter
-//         keybd_event(VK_RETURN as u8, 0, 2, 0); // Release Enter
-//     }
-
-//     thread::sleep(time::Duration::from_secs(1)); // Allow UI to respond
-// }
 
 pub fn click_lobby_pos(x: i32, y: i32) {
     let mut enigo = Enigo::new();

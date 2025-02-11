@@ -53,3 +53,20 @@ fn main() {
         println!("ACR Poker window not found.");
     }
 }
+
+// pub fn click_lobby() {
+//     unsafe {
+//         // Press "Tab" 8 times
+//         for _ in 0..8 {
+//             keybd_event(VK_TAB as u8, 0, 0, 0); // Press Tab
+//             keybd_event(VK_TAB as u8, 0, 2, 0); // Release Tab
+//             thread::sleep(time::Duration::from_millis(100)); // Small delay for UI responsiveness
+//         }
+
+//         // Press "Enter"
+//         keybd_event(VK_RETURN as u8, 0, 0, 0); // Press Enter
+//         keybd_event(VK_RETURN as u8, 0, 2, 0); // Release Enter
+//     }
+
+//     thread::sleep(time::Duration::from_secs(1)); // Allow UI to respond
+// }
