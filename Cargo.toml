@@ -1,0 +1,9 @@
+[package]
+name = "lobbyze-opener"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+enigo = "0.0.14"
+winapi = { version = "0.3", features = ["winuser"] }
+
