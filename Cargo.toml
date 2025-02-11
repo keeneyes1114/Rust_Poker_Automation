@@ -1,6 +1,9 @@
 [package]
-name = "acr-poker-automation"
+name = "acr_poker_automation"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+enigo = "0.1"
+winapi = { version = "0.3", features = ["winuser", "processthreadsapi", "windef"] }
+uiautomation = "0.16.0"
