@@ -30,13 +30,13 @@ pub fn type_text_and_enter(text: &str) {
         keybd_event(0x41 as BYTE, 0, 2, 0); // Release A
         keybd_event(VK_CONTROL as BYTE, 0, 2, 0); // Release Ctrl
 
-        thread::sleep(time::Duration::from_millis(100)); // Small delay
+        thread::sleep(time::Duration::from_millis(10)); // Small delay
 
         // Press "Backspace" to delete the selected text
         keybd_event(VK_BACK as BYTE, 0, 0, 0); // Press Backspace
         keybd_event(VK_BACK as BYTE, 0, 2, 0); // Release Backspace
 
-        thread::sleep(time::Duration::from_millis(100)); // Small delay
+        thread::sleep(time::Duration::from_millis(10)); // Small delay
     }
 
     for c in text.chars() {
@@ -45,7 +45,7 @@ pub fn type_text_and_enter(text: &str) {
             keybd_event(vk, 0, 0, 0); // Press key
             keybd_event(vk, 0, 2, 0); // Release key
         }
-        thread::sleep(time::Duration::from_millis(50)); // Small delay between key presses
+        thread::sleep(time::Duration::from_millis(1)); // Small delay between key presses
     }
 
     // Press Enter key to confirm search

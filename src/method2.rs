@@ -1,7 +1,7 @@
 mod ui_interaction;
 mod window_utils;
 
-use ui_interaction::{click_button, click_lobby, click_lobby_pos, type_text_and_enter};
+use ui_interaction::{click_button, click_lobby, type_text_and_enter};
 use winapi::um::winuser::{GetWindowRect};
 use winapi::shared::windef::RECT;
 use window_utils::get_acr_poker_handle;
@@ -23,22 +23,31 @@ fn main() {
 
         // Step 1: Click Tournament Tab
         click_button("TOURNAMENTS");
-        thread::sleep(time::Duration::from_millis(3));
        
         // Step 2: Click Search Bar
         click_button("Search tournaments and players");
 
-        // Step 3: Type Tournament ID and Press Enter
+        // Step 3: Clear All Searches
+        click_button("Clear All Searches");
+
+        // Step 4: Click Search Bar Again
+        click_button("Search tournaments and players");
+
+        // Step 5: Type Tournament ID and Press Enter
         let tournament_id = "33206373";
         type_text_and_enter(tournament_id);
 
-        // Step 4: Double Click First Row
-        if let Some((x, y, width, height)) = get_window_position(hwnd) {
-            let first_row_x = x + 480;
-            let first_row_y = y + 305;
-            println!("Double Clicking First Row at ({}, {})", first_row_x, first_row_y);
-            click_lobby_pos(first_row_x, first_row_y);
-        }
+        // Step 6: Click BLITZ
+        click_button("BLITZ");
+
+        // Step 7: Click Tournament Tab
+        click_button("TOURNAMENTS");
+       
+        // Step 8: Click Search Bar
+        click_button("Search tournaments and players");
+  
+        // Step 9: Double Click Lobby Window
+        click_lobby();
 
     } else {
         println!("ACR Poker window not found.");
