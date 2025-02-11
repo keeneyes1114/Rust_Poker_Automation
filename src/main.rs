@@ -1,19 +1,19 @@
 mod ui_interaction;
 mod window_utils;
 
-use ui_interaction::{click_button, click_lobby, click_lobby_pos, type_text_and_enter};
+use ui_interaction::{click_button, click_lobby_pos, type_text_and_enter};
 use winapi::um::winuser::{GetWindowRect};
 use winapi::shared::windef::RECT;
 use window_utils::get_acr_poker_handle;
 use std::{thread, time};
 
-fn get_window_position(hwnd: winapi::shared::windef::HWND) -> Option<(i32, i32, i32, i32)> {
+fn get_window_position(hwnd: winapi::shared::windef::HWND) -> Option<(i32, i32)> {
     unsafe {
         let mut rect: RECT = RECT { left: 0, top: 0, right: 0, bottom: 0 };
         if GetWindowRect(hwnd, &mut rect) == 0 {
             return None;
         }
-        Some((rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top))
+        Some((rect.left, rect.top))
     }
 }
 
@@ -23,7 +23,7 @@ fn main() {
 
         // Step 1: Click Tournament Tab
         click_button("TOURNAMENTS");
-        thread::sleep(time::Duration::from_millis(3));
+        thread::sleep(time::Duration::from_millis(3000));
        
         // Step 2: Click Search Bar
         click_button("Search tournaments and players");
@@ -33,7 +33,7 @@ fn main() {
         type_text_and_enter(tournament_id);
 
         // Step 4: Double Click First Row
-        if let Some((x, y, width, height)) = get_window_position(hwnd) {
+        if let Some((x, y)) = get_window_position(hwnd) {
             let first_row_x = x + 480;
             let first_row_y = y + 305;
             println!("Double Clicking First Row at ({}, {})", first_row_x, first_row_y);

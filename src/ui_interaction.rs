@@ -1,6 +1,6 @@
 
 extern crate winapi;
-use winapi::um::winuser::{keybd_event, VK_RETURN, VK_TAB, VK_BACK, VK_CONTROL};
+use winapi::um::winuser::{keybd_event, VK_RETURN, VK_BACK, VK_CONTROL};
 use winapi::shared::minwindef::{BYTE};
 use std::{thread, time};
 
@@ -56,22 +56,22 @@ pub fn type_text_and_enter(text: &str) {
     thread::sleep(time::Duration::from_secs(1)); // Allow UI to respond
 }
 
-pub fn click_lobby() {
-    unsafe {
-        // Press "Tab" 8 times
-        for _ in 0..8 {
-            keybd_event(VK_TAB as u8, 0, 0, 0); // Press Tab
-            keybd_event(VK_TAB as u8, 0, 2, 0); // Release Tab
-            thread::sleep(time::Duration::from_millis(100)); // Small delay for UI responsiveness
-        }
+// pub fn click_lobby() {
+//     unsafe {
+//         // Press "Tab" 8 times
+//         for _ in 0..8 {
+//             keybd_event(VK_TAB as u8, 0, 0, 0); // Press Tab
+//             keybd_event(VK_TAB as u8, 0, 2, 0); // Release Tab
+//             thread::sleep(time::Duration::from_millis(100)); // Small delay for UI responsiveness
+//         }
 
-        // Press "Enter"
-        keybd_event(VK_RETURN as u8, 0, 0, 0); // Press Enter
-        keybd_event(VK_RETURN as u8, 0, 2, 0); // Release Enter
-    }
+//         // Press "Enter"
+//         keybd_event(VK_RETURN as u8, 0, 0, 0); // Press Enter
+//         keybd_event(VK_RETURN as u8, 0, 2, 0); // Release Enter
+//     }
 
-    thread::sleep(time::Duration::from_secs(1)); // Allow UI to respond
-}
+//     thread::sleep(time::Duration::from_secs(1)); // Allow UI to respond
+// }
 
 pub fn click_lobby_pos(x: i32, y: i32) {
     let mut enigo = Enigo::new();
