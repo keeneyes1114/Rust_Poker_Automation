@@ -7,18 +7,6 @@ use std::{thread, time};
 use enigo::{Enigo, MouseButton, MouseControllable};
 use uiautomation::UIAutomation;
 
-pub fn is_existed(button_name: &str) -> bool {
-    let automation = UIAutomation::new().unwrap();
-    
-    let matcher = automation.create_matcher().name(button_name);
-    if let Ok(button) = matcher.find_first() {
-        return true; // The button exists
-    } else {
-        return false; // The button does not exist
-    }
-}
-
-
 pub fn click_button(button_name: &str) {
     let automation = UIAutomation::new().unwrap();
     
